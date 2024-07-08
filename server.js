@@ -4,6 +4,8 @@ const bookRouter = require("./src/routes/bookRoutes");
 const reviewRouter = require("./src/routes/reviewRouter");
 const userRouter = require("./src/routes/userRoute");
 const auth = require("./src/middlewares/authMiddleware");
+const openapiSpecification = require("./src/configs/jsDoc");
+const swaggerUi = require('swagger-ui-express')
 require('dotenv').config()
 
 const port = process.env.PORT || 9090;
@@ -11,6 +13,8 @@ const db_url = process.env.DB_URL
 const app = express()
 
 app.use(express.json())
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification))
 
 app.get('/',(req,res)=>{
     res.send('This is the home route')
